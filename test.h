@@ -31,7 +31,10 @@ typedef struct{
 
 }Player;
 
+
 typedef enum{Bouclier, Epee, Mitraillette, Baton, Medkit ,Eclair , None}Assets; // enumeration des assets
+
+
 
  // declaration des joueurs ( a chager par les files ) 
 Player p1 = {"luffy" , 70 , PVMAX, 0.3 , 7 , 2 , 0.4 , ENNERGY , "Gum Gum no Gum Gum" , 1.4 , 2 , "Gear 5" , 1.8 , 4 };
@@ -49,43 +52,7 @@ Player p12 = {"Kaido", 90, PVMAX, 0.3, 8, 4, 0.2, ENNERGY, "Thunder", 1.4, 2, "B
 
 
 
-void atout(Player* p,Assets a){ // fonction qui permet de choisir un atout et qui l'affecte au joueur
-  switch(a){
-    case Bouclier:
-      p->def = p->def + 0.1;
-      p->dodge = p->dodge - 0.1;
-      break;
-    case Epee:
-      p->att = p->att + 0.1;
-      p->def = p->def - 0.1;
-      break;
-    case Mitraillette:
-      p->crit1 = p->crit1 + 0.1;
-      p->crit2 = p->crit2 + 0.1;
-      p->pv = p->pv - 10;
-      break;
-    case Baton:
-      p->dodge = p->dodge + 0.1;
-      p->crit1 = p->crit1 - 0.1;
-      p->crit2 = p->crit2 - 0.1;
-      
-      break;
-    case Medkit:
-      p->pv = p->pv + 10;
-      p->att = p->att - 0.1;
-      break;
-    case Eclair:
-      p->speed = p->speed + 1;
-      p->att = p->att - 0.1;
-      break;
-    case None:
-      break;
-    default:
-      printf("error : atout non reconnu \n");
-      exit(1);
-    }
-      
-}
+
 
 typedef struct {
     char* nom;
@@ -111,6 +78,21 @@ Personnage persos[12] = {  //pour l affichage
     {"(11) Crocodile", 1, 1, 5, 5, 3, 2},
     {"(12) Kaido", 4, 5, 3, 4, 2, 4}
 };
+
+void atout(Personnage *p, int a) {
+    switch (a) {
+        case 1: p->def++; p->dodge--; break;
+        case 2: p->att++; p->def--; break;
+        case 3: p->crit++; p->pv--; break;
+        case 4: p->dodge++; p->crit--; break;
+        case 5: p->pv++; p->att--; break;
+        case 6: p->speed++; p->att--; break;
+        case 0: break;
+        default:
+            printf("Erreur : atout non reconnu\n");
+            exit(1);
+    }
+}
 
 
 int demanderChoixDansIntervalle(const char *texte, int min, int max, const char *couleur) {
