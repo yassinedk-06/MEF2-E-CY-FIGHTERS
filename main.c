@@ -81,6 +81,8 @@ void afficherPersonnage(int x) {
 }
 
 
+
+
 void afficherTousLesPersos() {
     system("clear");
     printf(BLEU "+=====================================================================================================================+\n");
@@ -94,7 +96,7 @@ void afficherTousLesPersos() {
     }
 
     printf("Appuie sur Entrée pour continuer...");
-    getchar();
+    while (getchar() != '\n');
 }
 
 void choix_joueur_E(int *equipe, int nbr_joueur) {
@@ -156,6 +158,71 @@ void choix_joueur(int *equipe1, int *equipe2, int nbr_joueur , int mode) {
         // a voir pour le choix de l equipe du bot ...
     }
     
+    printf("\n Appuie sur Entrée pour continuer... \n");
+    while (getchar() != '\n');
+}
+
+void afficher_stats() {
+    system("clear");
+    const char* noms_assets[] = {
+        "1 - Bouclier     ",
+        "2 - Épée         ",
+        "3 - Mitraillette ",
+        "4 - Bâton        ",
+        "5 - Medkit       ",
+        "6 - Éclair       "
+    };
+    const char *stats_pos[] = { "DEF", "ATT", "CRIT", "DODGE", "PV", "SPEED" };
+    const char *stats_neg[] = { "DODGE", "DEF", "PV", "CRIT", "ATT", "ATT" };
+
+    // Ligne des noms d'atouts
+    for (int i = 0; i < 6; i++) {
+        printf("[ %s]",noms_assets[i]);
+    }
+
+    printf("\n\n");
+
+    // Ligne des stats positives
+    for (int i = 0; i < 6; i++) {
+        printf(VERT"[+] %-16s", stats_pos[i]);
+    }
+
+    printf("\n\n");
+
+    // Ligne des stats négatives
+    for (int i = 0; i < 6; i++) {
+        printf(ROUGE"[-] %-16s" RESET, stats_neg[i]);
+    }
+
+    printf("\n\n\n");
+}
+
+void choix_assets(int equipe[], int mode) {
+    int arme  = 0;
+    for (int i = 0; i <= mode; i++) {
+        arme  = demanderChoixDansIntervalle("choisir arme : " , 0,6 , VERT);
+        Personnage *p = &persos[equipe[i] - 1]; // récupérer le pointeur vers le personnage
+        atout(p, arme);                        // appliquer l'atout directement
+        afficherPersonnage(equipe[i] - 1);     // afficher les stats mises à jour
+        
+        // METRE A JOUR LA STRUCT PLAYER AVEC L AUTRE FONCTION ATOUT ...
+    }
+}
+
+void choix_assets_E(int equipe1[],int equipe2[], int mode ) {
+    afficher_stats();
+    printf("Au tour de l equipe 1:  \n");
+    choix_assets(equipe1 , mode);
+    
+    printf("\n Appuie sur Entrée pour continuer... \n");
+    while (getchar() != '\n');
+    
+    afficher_stats();
+    printf("Au tour de l equipe 2:  \n");
+    choix_assets(equipe2 , mode);
+    
+    
+    
 }
 
 
@@ -167,5 +234,6 @@ int main() {
     afficherMenu(&mode , &nbr_joueur);
     afficherTousLesPersos();
     choix_joueur(equipe1, equipe2, nbr_joueur , mode);
+    choix_assets_E(equipe1,equipe2 ,mode);
     return 0;
 }
