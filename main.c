@@ -197,9 +197,10 @@ void afficher_stats() {
     printf("\n\n\n");
 }
 
-void choix_assets(int equipe[], int mode) {
+void choix_assets(int equipe[], int nbr_joueur) {
     int arme  = 0;
-    for (int i = 0; i <= mode; i++) {
+    for (int i = 0; i <= nbr_joueur; i++) {
+        
         arme  = demanderChoixDansIntervalle("choisir arme : " , 0,6 , VERT);
         Personnage *p = &persos[equipe[i] - 1]; // récupérer le pointeur vers le personnage
         atout(p, arme);                        // appliquer l'atout directement
@@ -209,17 +210,17 @@ void choix_assets(int equipe[], int mode) {
     }
 }
 
-void choix_assets_E(int equipe1[],int equipe2[], int mode ) {
+void choix_assets_E(int equipe1[],int equipe2[], int nbr_joueur ) {
     afficher_stats();
     printf("Au tour de l equipe 1:  \n");
-    choix_assets(equipe1 , mode);
+    choix_assets(equipe1 , nbr_joueur);
     
     printf("\n Appuie sur Entrée pour continuer... \n");
     while (getchar() != '\n');
     
     afficher_stats();
     printf("Au tour de l equipe 2:  \n");
-    choix_assets(equipe2 , mode);
+    choix_assets(equipe2 , nbr_joueur);
     
     
     
@@ -234,6 +235,6 @@ int main() {
     afficherMenu(&mode , &nbr_joueur);
     afficherTousLesPersos();
     choix_joueur(equipe1, equipe2, nbr_joueur , mode);
-    choix_assets_E(equipe1,equipe2 ,mode);
+    choix_assets_E(equipe1,equipe2 ,nbr_joueur);
     return 0;
 }
