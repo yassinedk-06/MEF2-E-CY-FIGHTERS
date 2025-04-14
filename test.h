@@ -32,7 +32,7 @@ typedef struct{
 }Player;
 
 
-typedef enum{Bouclier, Epee, Mitraillette, Baton, Medkit ,Eclair , None}Assets; // enumeration des assets
+//typedef enum{Bouclier, Epee, Mitraillette, Baton, Medkit ,Eclair , None}Assets; // enumeration des assets
 
 
 
