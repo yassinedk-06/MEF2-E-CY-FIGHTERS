@@ -37,7 +37,7 @@ void afficherMenu(int *mode , int *nbr_joueur) {
     printf(" 1. 🎮  Joueur vs Joueur (PVP)\n");
     printf(" 2. 🤖 Joueur vs Ordinateur (PVC)\n\n");
 
-    *mode = demanderChoix("👉 Choisis ton mode");
+    *mode = demanderChoixDansIntervalle("👉 Choisis ton mode", 1, 2 , JAUNE);
     system("clear");
 
     printf(BLEU "\n+========================================+  \n");
@@ -46,7 +46,7 @@ void afficherMenu(int *mode , int *nbr_joueur) {
     printf(" 1. 👥  2 contre 2\n");
     printf(" 2. 👥  3 contre 3\n\n");
 
-    *nbr_joueur = demanderChoix("👉 Choisis la taille de ton équipe");
+    *nbr_joueur =  demanderChoixDansIntervalle("👉 Choisis la taille de ton équipe", 1, 2 , JAUNE);
 
     printf(VERT "\n✅  Tu as choisi : %s\n", (*mode== 1) ? "PVP" : "PVC");
     printf("👥  Taille : %s\n\n" RESET, (*nbr_joueur == 1) ? "2v2" : "3v3");
