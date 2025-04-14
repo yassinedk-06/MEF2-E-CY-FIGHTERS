@@ -68,7 +68,7 @@ void afficherBarre(int valeur) {
 }
 
 void afficherPersonnage(int x) {
-    Personnage p = persos[x];
+    AffichagePerso p = persos_affichage[x];
 
     printf(ROUGE"[%-17s]"RESET, p.nom );
     printf("PV    : "); afficherBarre(p.pv);
@@ -132,7 +132,7 @@ void choix_joueur_E(int *equipe, int nbr_joueur) {
         }
          
 
-        printf("✅  Vous avez choisi : %s\n", persos[equipe[i] - 1].nom);
+        printf("✅  Vous avez choisi : %s\n", persos_affichage[equipe[i] - 1].nom);
         
     }
 }
@@ -202,7 +202,7 @@ void choix_assets(int equipe[], int nbr_joueur) {
     for (int i = 0; i <= nbr_joueur; i++) {
         
         arme  = demanderChoixDansIntervalle("choisir arme : " , 0,6 , VERT);
-        Personnage *p = &persos[equipe[i] - 1]; // récupérer le pointeur vers le personnage
+        AffichagePerso *p = &persos_affichage[equipe[i] - 1]; // récupérer le pointeur vers le personnage
         atout(p, arme);                        // appliquer l'atout directement
         afficherPersonnage(equipe[i] - 1);     // afficher les stats mises à jour
         
